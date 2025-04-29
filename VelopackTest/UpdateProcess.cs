@@ -5,7 +5,7 @@ namespace VelopackTest
 {
     internal class UpdateProcess
     {
-        private const string GITHUB_URL = "https://example.com/updates.xml";
+        private const string GITHUB_URL = "https://github.com/NXKoses/VelopackTest";
 
         public static async Task CheckForUpdateAsync()
         {
