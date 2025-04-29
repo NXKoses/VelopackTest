@@ -30,7 +30,7 @@ namespace VelopackTest
                 var result = MessageBox.Show("新しいバージョンが見つかりました。更新しますか？", "更新", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    form.Close();
+                    form.Hide();
                     await mgr.DownloadUpdatesAsync(newVersion);
                     mgr.ApplyUpdatesAndRestart(newVersion);
                 }
@@ -39,6 +39,7 @@ namespace VelopackTest
             catch(Exception e)
             {
                 MessageBox.Show(e.Message, "エラー", MessageBoxButtons.OK);
+                Application.Exit();
             }
         }
     }
