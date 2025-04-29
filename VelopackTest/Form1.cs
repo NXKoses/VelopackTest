@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace VelopackTest
 {
     public partial class Form1 : Form
@@ -11,6 +13,16 @@ namespace VelopackTest
         {
             // 更新を確認する
             await UpdateProcess.CheckForUpdateAsync();
+
+            var assembly = Assembly.GetExecutingAssembly().GetName();
+            var version = assembly.Version;
+            label1.Text = version.ToString(3);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
