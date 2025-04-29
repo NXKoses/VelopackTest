@@ -7,7 +7,7 @@ namespace VelopackTest
     {
         private const string GITHUB_URL = "https://github.com/NXKoses/VelopackTest";
 
-        public static async Task CheckForUpdateAsync()
+        public static async Task CheckForUpdateAsync(Form form)
         {
             try
             {
@@ -15,7 +15,7 @@ namespace VelopackTest
 
                 if (!mgr.IsInstalled)
                 {
-                    // インストールされていない場合は、インストールを促す
+                    // インストールされていない場合
                     MessageBox.Show("更新を確認できませんでした。", "エラー", MessageBoxButtons.OK);
                     return;
                 }
@@ -30,6 +30,7 @@ namespace VelopackTest
                 var result = MessageBox.Show("新しいバージョンが見つかりました。更新しますか？", "更新", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
+                    form.Close();
                     await mgr.DownloadUpdatesAsync(newVersion);
                     mgr.ApplyUpdatesAndRestart(newVersion);
                 }
