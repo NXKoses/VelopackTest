@@ -33,7 +33,12 @@ jobs:
 
             - name: Create Velopack Release
               run: |
-                    dotnet tool install -g vpk
-                    vpk download github --repoUrl https://github.com/NXKoses/VelopackTest
-                    vpk pack --mainExe VelopackTest.exe -v ${{ steps.get-version.outputs.version }} -p publish --packId VelopackTest-${{ steps.get-version.outputs.version }}-${{ steps.get-time.outputs.time }}
-                    vpk upload github --repoUrl https://github.com/NXKoses/VelopackTest --publish --releaseName "VelopackTest ${{ steps.get-version.outputs.version }}" --tag v${{ steps.get-version.outputs.version }}
+                dotnet tool install -g vpk
+                vpk download github --repoUrl https://github.com/NXKoses/VelopackTest
+                vpk pack --mainExe VelopackTest.exe -v ${{ steps.get-version.outputs.version }} -p publish --packId VelopackTest-${{ steps.get-version.outputs.version }}-${{ steps.get-time.outputs.time }} --channel win
+                vpk upload github \
+                  --repoUrl https://github.com/NXKoses/VelopackTest \
+                  --token ${{ secrets.GITHUB_TOKEN }} \
+                  --publish \
+                  --releaseName "VelopackTest ${{ steps.get-version.outputs.version }}" \
+                  --tag v${{ steps.get-version.outputs.version }}
