@@ -56,9 +56,9 @@
             // 
             button2.Location = new Point(12, 324);
             button2.Name = "button2";
-            button2.Size = new Size(75, 23);
+            button2.Size = new Size(219, 23);
             button2.TabIndex = 2;
-            button2.Text = "button2";
+            button2.Text = "ボタン2だよ　(　´_ゝ｀)ﾌｰﾝ";
             button2.UseVisualStyleBackColor = true;
             // 
             // Form1
