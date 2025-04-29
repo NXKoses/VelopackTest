@@ -11,7 +11,7 @@ namespace VelopackTest
         {
             try
             {
-                var mgr = new UpdateManager(new GithubSource(GITHUB_URL, null, false));
+                var mgr = new UpdateManager(new GithubSource(@GITHUB_URL, null, false));
 
                 if (!mgr.IsInstalled)
                 {
