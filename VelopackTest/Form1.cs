@@ -12,7 +12,7 @@ namespace VelopackTest
         private async void Form1_Load(object sender, EventArgs e)
         {
             // 更新を確認する
-            await UpdateProcess.CheckForUpdateAsync();
+            await UpdateProcess.CheckForUpdateAsync(this);
 
             var assembly = Assembly.GetExecutingAssembly().GetName();
             var version = assembly.Version;

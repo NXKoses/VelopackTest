@@ -20,16 +20,10 @@ jobs:
               shell: bash
               run: echo "version=$(grep -oE '<Version>[^<]+' VelopackTest/VelopackTest.csproj | sed 's/<Version>//')" >> $GITHUB_OUTPUT
 
-            - name: Get Now Time
-              id: get-time
-              shell: bash
-              run: echo "time=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
-
             - name: Install .NET
               uses: actions/setup-dotnet@v4
               with:
                     dotnet-version: 8.0.x
-
 
             - name: Publish Application
               run: dotnet publish VelopackTest/VelopackTest.csproj -c Release -o publish -r win-x64 --self-contained true
@@ -39,7 +33,7 @@ jobs:
               run: |
                 dotnet tool install -g vpk
                 vpk download github --repoUrl https://github.com/NXKoses/VelopackTest
-                vpk pack --mainExe VelopackTest.exe -v ${{ steps.get-version.outputs.version }} -p publish --packId VelopackTest-${{ steps.get-version.outputs.version }}-${{ steps.get-time.outputs.time }} --channel win
+                vpk pack --mainExe VelopackTest.exe -v ${{ steps.get-version.outputs.version }} -p publish --packId VelopackTest-${{ steps.get-version.outputs.version }} --channel win
                 vpk upload github \
                   --repoUrl https://github.com/NXKoses/VelopackTest \
                   --token ${{ secrets.GITHUB_TOKEN }} \
