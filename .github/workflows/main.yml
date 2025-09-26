@@ -40,6 +40,3 @@ jobs:
                   --publish \
                   --releaseName "VelopackTest ${{ steps.get-version.outputs.version }}" \
                   --tag v${{ steps.get-version.outputs.version }}
-            - name: Generate Release Notes
-              run: |
-                   git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"- %s" > ReleaseNotes.md
