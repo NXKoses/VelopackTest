@@ -16,7 +16,7 @@ namespace VelopackTest
                 if (!mgr.IsInstalled)
                 {
                     // インストールされていない場合
-                    MessageBox.Show("更新を確認できませんでした。", "エラー", MessageBoxButtons.OK);
+                    MessageBox.Show("ポータブル版では自動更新機能を使用できません。", "お知らせ", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -27,11 +27,23 @@ namespace VelopackTest
                     return; // 新しいバージョンがない場合は何もしない
                 }
 
-                var result = MessageBox.Show("新しいバージョンが見つかりました。更新しますか？", "更新", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show("新しいバージョンが見つかりました。更新しますか？", "更新", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (result == DialogResult.Yes)
                 {
-                    form.Hide();
-                    await mgr.DownloadUpdatesAsync(newVersion);
+                    form.Hide(); // メインフォームを隠す
+                    var updateForm = new UpdateForm(); // プログレスバー付きフォーム
+                    updateForm.Show();
+
+                    // 進捗を UI に反映させる
+                    var progress = new Action<int>(p =>
+                    {
+                        updateForm.SetProgress(p); // プログレスバー更新
+                    });
+
+                    // ダウンロード開始
+                    await mgr.DownloadUpdatesAsync(newVersion, progress);
+
+                    updateForm.Close();
                     mgr.ApplyUpdatesAndRestart(newVersion);
                 }
 
